@@ -3,7 +3,7 @@ import React from "react";
 import Side from "../components/Side";
 import Header from "../components/Header";
 
-const Form = ({ handleChange, product, godown }) => {
+const Form = ({ handleChange, product, godown ,handleSubmit}) => {
   return (
     <>
       <div className="wrapper">
@@ -40,7 +40,7 @@ const Form = ({ handleChange, product, godown }) => {
               </div>
               <div className="row">
                 <div className="col-md-12">
-                  <form action="" method="post">
+                  <form action="" method="post" onSubmit={handleSubmit}>
                     <div className="card">
                       <div className="card-header">
                         <div className="card-title">Form Elements</div>
@@ -109,8 +109,10 @@ const Form = ({ handleChange, product, godown }) => {
                               <input
                                 type="file"
                                 name="file"
+                                onChange={handleChange}
                                 className="form-control"
                                 id="product_image"
+                                
                                 placeholder="Enter product image"
                               />
                             </div>
@@ -127,7 +129,7 @@ const Form = ({ handleChange, product, godown }) => {
                                 <input
                                   className="form-check-input"
                                   onChange={handleChange}
-                                  checked={godown.includes('surat' ? true:false)}
+                                  checked={godown.includes("Surat")}
                                   type="checkbox"
                                   id="surat"
                                   name="godown"
@@ -143,8 +145,8 @@ const Form = ({ handleChange, product, godown }) => {
                               <div className="form-check-inline">
                                 <input
                                   className="form-check-input"
-                                   onChange={handleChange}
-                                  checked={godown.includes('navsari' ? true:false)}
+                                  onChange={handleChange}
+                                  checked={godown.includes("Navsari")}
                                   type="checkbox"
                                   id="navsari"
                                   name="godown"
@@ -160,15 +162,15 @@ const Form = ({ handleChange, product, godown }) => {
                               <div className="form-check-inline">
                                 <input
                                   className="form-check-input"
-                                   onChange={handleChange}
-                                  checked={godown.includes('bardoli' ? true:false)}
+                                  onChange={handleChange}
+                                  checked={godown.includes("Bardoli")}
                                   type="checkbox"
                                   id="bardoli"
                                   name="godown"
-                                  value="bardoli"
+                                  value="Bardoli"
                                 />
                                 <label
-                                  className="form-check-label  "
+                                  className="form-check-label ms-1"
                                   htmlFor="bardoli"
                                 >
                                   Bardoli
@@ -183,7 +185,7 @@ const Form = ({ handleChange, product, godown }) => {
                               <textarea
                                 onChange={handleChange}
                                 name="description"
-                                value={product.description || ''}
+                                value={product.description || ""}
                                 className="form-control"
                                 id="description"
                               />
