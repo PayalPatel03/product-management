@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import Home from "./pages/Home";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Form from "./pages/Form";
 import Datatable from "./pages/Datatable";
 
@@ -10,15 +10,14 @@ const App = () => {
   const [godown, setGodown] = useState([]);
   const [editId, setEditId] = useState(-1);
   const fileInputRef = useRef(null);
-  
 
-  // Load data from localStorage
+  const navigate = useNavigate();
+
   useEffect(() => {
     const oldData = JSON.parse(localStorage.getItem("productss") || "[]");
     setProductsData(oldData);
   }, []);
 
-  // Handle form changes
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
 
@@ -49,17 +48,14 @@ const App = () => {
     }
   };
 
-  // Handle submit (add or edit)
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (editId === -1) {
-      // Add new
       const newData = [...productsData, { ...product, godown, id: Date.now() }];
       setProductsData(newData);
       localStorage.setItem("productss", JSON.stringify(newData));
     } else {
-      // Edit existing
       const updatedData = productsData.map((item) =>
         item.id === editId ? { ...product, godown, id: editId } : item
       );
@@ -70,26 +66,25 @@ const App = () => {
 
     setProduct({});
     setGodown([]);
-    if (fileInputRef.current) fileInputRef.current.value = "";
+
+    navigate("/datatable");
   };
 
-  // Handle delete
   const handleDelete = (id) => {
     const newData = productsData.filter((item) => item.id !== id);
     setProductsData(newData);
     localStorage.setItem("productss", JSON.stringify(newData));
   };
 
-  // Handle edit
   const handleEdit = (id) => {
     const selected = productsData.find((item) => item.id === id);
     if (selected) {
       setProduct(selected);
       setGodown(selected.godown || []);
       setEditId(id);
+      navigate("/form");
     }
   };
-
   return (
     <>
       <Routes>
