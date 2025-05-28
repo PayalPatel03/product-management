@@ -3,7 +3,7 @@ import React from "react";
 import Side from "../components/Side";
 import Header from "../components/Header";
 
-const Form = ({ handleChange, product, godown ,handleSubmit}) => {
+const Form = ({ handleChange, product, godown ,handleSubmit,imgRef}) => {
   return (
     <>
       <div className="wrapper">
@@ -108,6 +108,7 @@ const Form = ({ handleChange, product, godown ,handleSubmit}) => {
                               </label>
                               <input
                                 type="file"
+                                ref={imgRef}
                                 name="file"
                                 onChange={handleChange}
                                 className="form-control"
