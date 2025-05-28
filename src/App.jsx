@@ -10,6 +10,7 @@ const App = () => {
   const [godown, setGodown] = useState([]);
   const [editId, setEditId] = useState(-1);
  const imgRef=useRef();
+ const[error,setError]=useState({});
 
   const navigate = useNavigate();
 
@@ -48,8 +49,18 @@ const App = () => {
     }
   };
 
+  const validation=()=>{
+    let errors={};
+    if(!product.product_name)errors.product_name="Product Name is required";
+
+    setError(errors);
+    return Object.keys(errors).length===0;
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if(!validation()) return;
 
     if (editId === -1) {
       const newData = [...productsData, { ...product, godown, id: Date.now() }];
@@ -100,6 +111,7 @@ const App = () => {
               handleSubmit={handleSubmit}
               imgRef={imgRef}
               isEdit={editId !== -1}
+              error={error}
 
             />
           }

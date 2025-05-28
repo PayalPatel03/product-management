@@ -3,7 +3,14 @@ import React from "react";
 import Side from "../components/Side";
 import Header from "../components/Header";
 
-const Form = ({ handleChange, product, godown ,handleSubmit,imgRef}) => {
+const Form = ({
+  handleChange,
+  product,
+  godown,
+  handleSubmit,
+  imgRef,
+  error,
+}) => {
   return (
     <>
       <div className="wrapper">
@@ -62,6 +69,11 @@ const Form = ({ handleChange, product, godown ,handleSubmit,imgRef}) => {
                                 id="product_name"
                                 placeholder="Enter product name"
                               />
+                              {error.product_name && (
+                                <span className="text-danger">
+                                  {error.product_name}
+                                </span>
+                              )}
                             </div>
                             <div className="form-group">
                               <label
@@ -113,7 +125,6 @@ const Form = ({ handleChange, product, godown ,handleSubmit,imgRef}) => {
                                 onChange={handleChange}
                                 className="form-control"
                                 id="product_image"
-                                
                                 placeholder="Enter product image"
                               />
                             </div>
