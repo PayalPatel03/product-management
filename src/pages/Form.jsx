@@ -137,9 +137,9 @@ const Form = ({
                                 id="product_image"
                                 placeholder="Enter product image"
                               />
-                              {/* {error.product_Image && (
+                              {/* {error.file && (
                                 <span className="text-danger">
-                                  {error.product_Image}
+                                  {error.file}
                                 </span>
                               )} */}
                             </div>

@@ -9,8 +9,8 @@ const App = () => {
   const [productsData, setProductsData] = useState([]);
   const [godown, setGodown] = useState([]);
   const [editId, setEditId] = useState(-1);
- const imgRef=useRef();
- const[error,setError]=useState({});
+  const imgRef = useRef();
+  const [error, setError] = useState({});
 
   const navigate = useNavigate();
 
@@ -49,23 +49,25 @@ const App = () => {
     }
   };
 
-  const validation=()=>{
-    let errors={};
-    if(!product.product_name)errors.product_name="*Product Name is required";
-    if(!product.product_price)errors.product_price="*Product Price is required";
-    if(!product.product_stock)errors.product_stock="*Stock is required";
-    // if(!product.product_Image)errors.product_Image="*Image is required";
-    if(!product.godown || product.godown.length === 0) error.godown = "Godown is required"
-    if(!product.description)errors.description="*Description is required";
+  const validation = () => {
+    let errors = {};
+    if (!product.product_name)
+      errors.product_name = "*Product Name is required";
+    if (!product.product_price)
+      errors.product_price = "*Product Price is required";
+    if (!product.product_stock) errors.product_stock = "*Stock is required";
+    // if (!product.file) errors.file = "*Image is required";
+    if (!godown || godown.length === 0) errors.godown = "*Godown is required";
+    if (!product.description) errors.description = "*Description is required";
 
     setError(errors);
-    return Object.keys(errors).length===0;
-  }
+    return Object.keys(errors).length === 0;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if(!validation()) return;
+    if (!validation()) return;
 
     if (editId === -1) {
       const newData = [...productsData, { ...product, godown, id: Date.now() }];
@@ -82,7 +84,7 @@ const App = () => {
 
     setProduct({});
     setGodown([]);
-    imgRef.current.value='';
+    imgRef.current.value = "";
 
     navigate("/datatable");
   };
@@ -117,7 +119,6 @@ const App = () => {
               imgRef={imgRef}
               isEdit={editId !== -1}
               error={error}
-
             />
           }
         />
