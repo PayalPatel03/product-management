@@ -159,18 +159,7 @@ const Datatable = ({ productsData, handleDelete,handleEdit }) => {
                               <th>Action</th>
                             </tr>
                           </thead>
-                          <tfoot>
-                            <tr>
-                              <th>Sr No.</th>
-                              <th>Product</th>
-                              <th>Price</th>
-                              <th>Stock</th>
-                              <th>Product-Image</th>
-                              <th>Godown</th>
-                              <th>Description</th>
-                              <th>Action</th>
-                            </tr>
-                          </tfoot>
+                          
                           <tbody>
                             {productsData.map((item, idx) => {
                               return (

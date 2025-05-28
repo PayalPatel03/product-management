@@ -114,7 +114,7 @@ const Form = ({
                                 id="product_stock"
                                 placeholder="Enter Stock available"
                               />
-                               {error.product_stock && (
+                              {error.product_stock && (
                                 <span className="text-danger">
                                   {error.product_stock}
                                 </span>
@@ -137,11 +137,11 @@ const Form = ({
                                 id="product_image"
                                 placeholder="Enter product image"
                               />
-                               {error.product_Image && (
+                              {/* {error.product_Image && (
                                 <span className="text-danger">
                                   {error.product_Image}
                                 </span>
-                              )}
+                              )} */}
                             </div>
                             {/*Godown */}
                             <div className="form-group">
@@ -203,6 +203,11 @@ const Form = ({
                                   Bardoli
                                 </label>
                               </div>
+                              {error.godown && (
+                                <span className="text-danger">
+                                  {error.godown}
+                                </span>
+                              )}
                             </div>
 
                             <div className="form-group">
@@ -216,14 +221,11 @@ const Form = ({
                                 className="form-control"
                                 id="description"
                               />
-                                  {error.description && (
+                              {error.description && (
                                 <span className="text-danger">
                                   {error.description}
                                 </span>
                               )}
-                              
-                             
-                              
                             </div>
                           </div>
                         </div>

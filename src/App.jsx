@@ -54,7 +54,8 @@ const App = () => {
     if(!product.product_name)errors.product_name="*Product Name is required";
     if(!product.product_price)errors.product_price="*Product Price is required";
     if(!product.product_stock)errors.product_stock="*Stock is required";
-    if(!product.product_Image)errors.product_Image="*Image is required";
+    // if(!product.product_Image)errors.product_Image="*Image is required";
+    if(!product.godown || product.godown.length === 0) error.godown = "Godown is required"
     if(!product.description)errors.description="*Description is required";
 
     setError(errors);
