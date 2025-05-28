@@ -51,7 +51,11 @@ const App = () => {
 
   const validation=()=>{
     let errors={};
-    if(!product.product_name)errors.product_name="Product Name is required";
+    if(!product.product_name)errors.product_name="*Product Name is required";
+    if(!product.product_price)errors.product_price="*Product Price is required";
+    if(!product.product_stock)errors.product_stock="*Stock is required";
+    if(!product.product_Image)errors.product_Image="*Image is required";
+    if(!product.description)errors.description="*Description is required";
 
     setError(errors);
     return Object.keys(errors).length===0;
