@@ -3,21 +3,34 @@ import Home from "./pages/Home";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Form from "./pages/Form";
 import Datatable from "./pages/Datatable";
+import axios from "axios";
 
 const App = () => {
   const [product, setProduct] = useState({});
   const [productsData, setProductsData] = useState([]);
   const [godown, setGodown] = useState([]);
-  const [editId, setEditId] = useState(-1);
+  const [editId, setEditId] = useState("");
   const imgRef = useRef();
   const [error, setError] = useState({});
 
   const navigate = useNavigate();
+  const URL = "http://localhost:3000/product";
+
+  // useEffect(() => {
+  //   const oldData = JSON.parse(localStorage.getItem("productss") || "[]");
+  //   setProductsData(oldData);
+  // }, []);
 
   useEffect(() => {
-    const oldData = JSON.parse(localStorage.getItem("productss") || "[]");
-    setProductsData(oldData);
+    handleFetch();
   }, []);
+
+  const handleFetch = async () => {
+    let res = await axios.get(URL);
+    setProductsData(res.data);
+    setEditId("");
+    setProduct({});
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
@@ -64,23 +77,17 @@ const App = () => {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validation()) return;
 
-    if (editId === -1) {
-      const newData = [...productsData, { ...product, godown, id: Date.now() }];
-      setProductsData(newData);
-      localStorage.setItem("productss", JSON.stringify(newData));
+    if (editId === "") {
+      await axios.post(URL, { ...product, godown, id: String(Date.now()) });
     } else {
-      const updatedData = productsData.map((item) =>
-        item.id === editId ? { ...product, godown, id: editId } : item
-      );
-      setProductsData(updatedData);
-      localStorage.setItem("productss", JSON.stringify(updatedData));
-      setEditId(-1);
+      let res = await axios.put(`${URL}/${editId}`, { ...product });
     }
+    handleFetch();
 
     setProduct({});
     setGodown([]);
@@ -89,21 +96,21 @@ const App = () => {
     navigate("/datatable");
   };
 
-  const handleDelete = (id) => {
-    const newData = productsData.filter((item) => item.id !== id);
-    setProductsData(newData);
-    localStorage.setItem("productss", JSON.stringify(newData));
+  const handleDelete = async (id) => {
+    await axios.delete(`${URL}/${id}`);
+    handleFetch();
   };
 
   const handleEdit = (id) => {
-    const selected = productsData.find((item) => item.id === id);
-    if (selected) {
-      setProduct(selected);
-      setGodown(selected.godown || []);
-      setEditId(id);
-      navigate("/form");
-    }
+    let user = productsData.find((item) => item.id === id);
+    if (!user) return;
+
+    setEditId(id);
+    setProduct(user);
+    setGodown(user.godown || []);
+    navigate("/form");
   };
+
   return (
     <>
       <Routes>
@@ -117,7 +124,7 @@ const App = () => {
               godown={godown}
               handleSubmit={handleSubmit}
               imgRef={imgRef}
-              isEdit={editId !== -1}
+              isEdit={editId !== ""}
               error={error}
             />
           }
